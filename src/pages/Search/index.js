@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, Text, Alert } from "react-native";
 
 import SearchBar from "../../components/SearchBar";
 import yelp from "../../services/api/yelp";
@@ -9,21 +9,33 @@ export default function Search() {
   // const [location, setLocation] = useState("");
   const [results, setResults] = useState([]);
 
-  const searchApi = async () => {
-    const response = await yelp.get("/search", {
-      params: {
-        limit: 50,
-        term: term,
-        location: "san jose"
-      }
-    });
+  useEffect(() => {
+    searchApi(term);
+  }, []);
 
-    setResults(response.data.businesses);
+  const searchApi = async searchTerm => {
+    console.log("Hello, World!");
+    try {
+      const response = await yelp.get("/search", {
+        params: {
+          limit: 50,
+          term: searchTerm,
+          location: "san jose"
+        }
+      });
+      setResults(response.data.businesses);
+    } catch (err) {
+      Alert.alert("Sorry, something went wrong", "Please, try again later.");
+    }
   };
 
   return (
     <SafeAreaView>
-      <SearchBar term={term} onChangeTerm={setTerm} onTermSubmit={searchApi} />
+      <SearchBar
+        term={term}
+        onChangeTerm={setTerm}
+        onTermSubmit={() => searchApi(term)}
+      />
       <Text>We have found {results.length} results</Text>
     </SafeAreaView>
   );
