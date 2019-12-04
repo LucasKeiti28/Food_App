@@ -1,5 +1,5 @@
 import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import { createStackNavigator, HeaderTitle } from "react-navigation-stack";
 
 import Search from "./src/pages/Search";
 import ResultsShow from "./src/pages/ResultsShow";
@@ -12,7 +12,15 @@ const navigator = createStackNavigator(
   {
     initialRouteName: "Search",
     defaultNavigationOptions: {
-      title: "Business Search"
+      title: "YELP API",
+      headerLeft: null,
+      headerStyle: {
+        backgroundColor: "rgb(220,0,0)"
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold"
+      }
     }
   }
 );
