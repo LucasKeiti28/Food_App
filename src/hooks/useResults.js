@@ -8,7 +8,7 @@ export default () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    searchApi("pizza");
+    searchApi("hamburger");
   }, []);
 
   const searchApi = async searchTerm => {
@@ -17,7 +17,7 @@ export default () => {
         params: {
           limit: 50,
           term: searchTerm,
-          location: "san jose"
+          location: "new york"
         }
       });
       setResults(response.data.businesses);

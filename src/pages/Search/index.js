@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, Alert } from "react-native";
+import { SafeAreaView, Text, ScrollView } from "react-native";
 
 import SearchBar from "../../components/SearchBar";
 import ResultList from "../../components/ResultList";
 import useResults from "../../hooks/useResults";
 
-export default function Search() {
+export default function Search(props) {
   const [term, setTerm] = useState("");
   const [searchApi, results] = useResults();
 
@@ -16,16 +16,21 @@ export default function Search() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <SearchBar
         term={term}
         onChangeTerm={setTerm}
         onTermSubmit={() => searchApi(term)}
       />
-      <Text>We have found {results.length} results</Text>
-      <ResultList title="Cost Effective" results={filterResultsByPrice("$")} />
-      <ResultList title="Bit Pricier" results={filterResultsByPrice("$$")} />
-      <ResultList title="Big Spender" results={filterResultsByPrice("$$$")} />
+
+      <ScrollView>
+        <ResultList
+          title="Cost Effective"
+          results={filterResultsByPrice("$")}
+        />
+        <ResultList title="Bit Pricier" results={filterResultsByPrice("$$")} />
+        <ResultList title="Big Spender" results={filterResultsByPrice("$$$")} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
