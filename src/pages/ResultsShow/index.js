@@ -4,10 +4,11 @@ import { SafeAreaView, Text, StyleSheet } from "react-native";
 
 // import { Container } from './styles';
 
-const ResultsShow = () => {
+const ResultsShow = ({ navigation }) => {
+  const id = navigation.getParam("id");
   return (
     <SafeAreaView>
-      <Text>Results Show</Text>
+      <Text>Results Show {id}</Text>
     </SafeAreaView>
   );
 };
